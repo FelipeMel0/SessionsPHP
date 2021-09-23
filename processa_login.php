@@ -1,16 +1,18 @@
 <?php
 
-require("./funcoes.php");
-
-require("./areaRestrita.php");
-
 session_start();
 
-// realizarLogin($_POST["nome"], $_POST["senha"], lerArquivo("./dados/usuarios.json"));
+require_once("./funcoes.php");
 
-// header('location: areaRestrita.php');
+if (isset($_POST['txt_usuario']) || isset($_POST['txt_senha'])) {
 
-if($_POST['usuario']='MarcelEntidade' && $_POST['senha']='idMarcel'){
-    $_SESSION['usuario'] = $_POST['usuario'];
-    header('location: areaRestrita.php');
+    $usuario = $_POST['txt_usuario'];
+    $senha = $_POST['txt_senha'];
+
+    realizarLogin($usuario, $senha, lerArquivo("dados/usuarios.json"));
+}
+else if($_GET["logout"]){
+
+    finalizarLogin();
+
 }

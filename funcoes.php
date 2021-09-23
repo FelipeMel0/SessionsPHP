@@ -28,12 +28,36 @@ function realizarLogin($usuario, $senha, $dados)
             $_SESSION["id"] = session_id();
             $_SESSION["dataHora"] = date('d/m/Y - h:i:s');
 
-            header('location: processa_login.php');
+            header('location: areaRestrita.php');
             exit;
-        } else {
+        } 
+        else {
 
-            header('location: index.php');
-            exit;
+            // header('location: index.php');
+            // exit;
+        
         }
     }
+
+    header("location: index.php");
+
+}
+
+/*Função de verificação de login*/ 
+
+function verificarLogin(){
+
+    if($_SESSION["id"] != session_id() || empty(session_id())){
+
+        header("location: index.php");
+
+    }
+
+}
+
+function finalizarLogin(){
+    session_unset(); //limpa todas as variáveis da sessão
+    session_destroy(); //destrói a sessão ativa
+
+    header("location: index.php");
 }
